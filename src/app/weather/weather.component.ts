@@ -17,9 +17,11 @@ export class WeatherComponent implements AfterViewInit {
         this.getWeather()
     }
 
-    public getWeather() {
-        if (this.cookieService.check("temp")) {
-            this.temp = `${this.cookieService.get("temp")} °C`
+    private getWeather(useCookies: boolean = true) {
+        if (this.cookieService.check("temp") && useCookies) {
+            setTimeout(() => {
+                this.temp = `${this.cookieService.get("temp")} °C`
+            }, 800)
             return
         }
 
@@ -36,7 +38,7 @@ export class WeatherComponent implements AfterViewInit {
         })
     }
 
-    public async loadWeather(latitude?: number, longitude?: number) {
+    private async loadWeather(latitude?: number, longitude?: number) {
         if (latitude === undefined || longitude === undefined)
             return
 
@@ -48,5 +50,26 @@ export class WeatherComponent implements AfterViewInit {
         const expires = new Date()
         expires.setHours(expires.getHours() + 1)
         this.cookieService.set("temp", JSON.stringify(weather.data.current_weather.temperature), expires)
+    }
+
+    private getImageFromWeatherCode(code: number): string | undefined {
+        const prefix = "/assets/images/"
+
+        if (0 <= code && code <= 5)
+            return prefix + "sunny.png"
+        else if (6 <= code && code <= 19)
+            return prefix + "clouds.png"
+        else if (20 <= code && code <= 29)
+            return prefix + "rain.png"
+        else if (30 <= code && code <= 49)
+            return prefix + "clouds.png"
+        else if (50 <= code && code <= 69)
+            return prefix + "rain.png"
+        else if (70 <= code && code <= 79)
+            return prefix + "snow.png"
+        else if (80 <= code && code <= 99)
+            return prefix + "rain.png"
+        else
+            return undefined
     }
 }

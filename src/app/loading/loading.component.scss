@@ -1,5 +1,5 @@
-@import "../../assets/colors";
-@import "../../assets/mixins";
+@import "../../assets/scss/colors";
+@import "../../assets/scss/mixins";
 
 .wrapper {
   @include row();

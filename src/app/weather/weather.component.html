@@ -1,4 +1,5 @@
 <div class="weather">
-    <p class="{{ temp === '' ? 'loading' : '' }}">{{ temp }}</p>
-    <app-loading [loading]="temp === ''"></app-loading>
+    <p class="{{ !temp ? 'loading' : '' }}">{{ temp }}</p>
+    
+    <app-loading [loading]="!temp"></app-loading>
 </div>
