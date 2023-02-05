@@ -1,0 +1,7 @@
+<div class="search">
+    <img class="icon" src="/assets/google.svg" alt="Google" id="google-icon" (click)="openGoogle()">
+    <input class="input" placeholder="Search" (keydown.enter)="search(searchInput.value)" autofocus
+           #searchInput>
+    <img class="icon" src="/assets/search.svg" alt="Search" id="search-icon"
+         (click)="search(searchInput.value)">
+</div>

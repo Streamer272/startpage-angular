@@ -1,0 +1,24 @@
+@import "../../assets/colors";
+@import "../../assets/mixins";
+
+.time {
+  @include row();
+
+  flex-direction: column;
+
+  p {
+    padding: 0;
+    margin: 0;
+    text-align: center;
+
+    &:first-of-type {
+      color: $primary-fg;
+      font-size: 2rem;
+    }
+
+    &:last-of-type {
+      color: $secondary-fg;
+      font-size: 1.6rem;
+    }
+  }
+}
