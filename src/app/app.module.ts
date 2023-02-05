@@ -9,6 +9,8 @@ import {WeatherComponent} from './weather/weather.component';
 import {LoadingComponent} from './loading/loading.component';
 import {CookieService} from "ngx-cookie-service";
 import {ShortcutComponent} from './shortcut/shortcut.component';
+import {SettingsComponent} from './settings/settings.component';
+import {HomeComponent} from './home/home.component';
 
 @NgModule({
     declarations: [
@@ -17,7 +19,9 @@ import {ShortcutComponent} from './shortcut/shortcut.component';
         TimeComponent,
         WeatherComponent,
         LoadingComponent,
-        ShortcutComponent
+        ShortcutComponent,
+        SettingsComponent,
+        HomeComponent
     ],
     imports: [
         BrowserModule,

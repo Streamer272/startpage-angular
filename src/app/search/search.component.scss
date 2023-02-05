@@ -1,5 +1,4 @@
-@import "../../assets/scss/colors";
-@import "../../assets/scss/mixins";
+@import "../../styles";
 
 .search {
   @include row();
@@ -11,15 +10,15 @@
   padding: 1rem 0;
 
   a {
-      text-decoration: none;
-      padding: 0;
-      margin: 0 1rem;
-      font-size: 0;
-      height: min-content;
+    text-decoration: none;
+    padding: 0;
+    margin: 0 1rem;
+    font-size: 0;
+    height: min-content;
 
-      .icon {
-          margin: 0;
-      }
+    .icon {
+      margin: 0;
+    }
   }
 
   .input {

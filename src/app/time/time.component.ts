@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
 import * as moment from 'moment';
 
 @Component({
@@ -7,18 +7,18 @@ import * as moment from 'moment';
     styleUrls: ['./time.component.scss']
 })
 export class TimeComponent implements AfterViewInit {
-    @ViewChild("time", {static: false}) timeElement?: ElementRef;
-    @ViewChild("date", {static: false}) dateElement?: ElementRef;
+    time: string = ""
+    date: string = ""
 
     ngAfterViewInit() {
-        this.updateTime(this.timeElement!!, this.dateElement!!)
+        this.updateTime()
         setInterval(() => {
-            this.updateTime(this.timeElement!!, this.dateElement!!)
+            this.updateTime()
         }, 500);
     }
 
-    private updateTime(timeElement: ElementRef, dateElement: ElementRef) {
-        timeElement.nativeElement.innerText = moment().format("[It's] h:mm A")
-        dateElement.nativeElement.innerText = moment().format("ddd MMM D, YYYY")
+    private updateTime() {
+        this.time = moment().format("[It's] h:mm A")
+        this.date = moment().format("ddd MMM D, YYYY")
     }
 }
