@@ -9,6 +9,7 @@ import {CookieService} from "ngx-cookie-service";
 })
 export class WeatherComponent implements AfterViewInit {
     temp: string = ""
+    weatherImage?: string = undefined
 
     constructor(private cookieService: CookieService) {
     }
@@ -20,7 +21,8 @@ export class WeatherComponent implements AfterViewInit {
     private getWeather(useCookies: boolean = true) {
         if (this.cookieService.check("temp") && useCookies) {
             setTimeout(() => {
-                this.temp = `${this.cookieService.get("temp")} °C`
+                this.temp = this.cookieService.get("temp")
+                this.weatherImage = this.cookieService.get("weatherImage")
             }, 800)
             return
         }
@@ -47,14 +49,17 @@ export class WeatherComponent implements AfterViewInit {
             return
 
         this.temp = `${Math.floor(weather.data.current_weather.temperature)} °C`
+        this.weatherImage = this.getImageFromWeatherCode(weather.data.current_weather.weathercode)
         const expires = new Date()
         expires.setHours(expires.getHours() + 1)
-        this.cookieService.set("temp", JSON.stringify(weather.data.current_weather.temperature), expires)
+        this.cookieService.set("temp", this.temp, expires)
+        this.cookieService.set("weatherImage", this.weatherImage || "", expires)
     }
 
     private getImageFromWeatherCode(code: number): string | undefined {
         const prefix = "/assets/images/"
 
+        console.log("checking ", code)
         if (0 <= code && code <= 5)
             return prefix + "sunny.png"
         else if (6 <= code && code <= 19)

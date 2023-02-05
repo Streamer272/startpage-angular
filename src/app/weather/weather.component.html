@@ -1,5 +1,5 @@
 <div class="weather">
     <p class="{{ !temp ? 'loading' : '' }}">{{ temp }}</p>
-    
+    <img class="{{ !temp ? 'loading' : '' }}" src="{{ weatherImage }}" alt="Weather">
     <app-loading [loading]="!temp"></app-loading>
 </div>
