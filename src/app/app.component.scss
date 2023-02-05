@@ -1,4 +1,5 @@
 @import "../assets/colors";
+@import "../assets/mixins";
 
 .start {
   position: fixed;
@@ -15,4 +16,8 @@
   flex-direction: column;
 
   background-color: $primary-bg;
+}
+
+.row {
+    @include row();
 }

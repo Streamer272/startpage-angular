@@ -1,4 +1,4 @@
 <div class="weather">
-    <p class="{{ loading ? 'loading' : '' }}" #temp>{{loading}}</p>
-    <app-loading [loading]="loading"></app-loading>
+    <p class="{{ temp === '' ? 'loading' : '' }}">{{ temp }}</p>
+    <app-loading [loading]="temp === ''"></app-loading>
 </div>
