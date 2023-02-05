@@ -8,6 +8,7 @@ import {TimeComponent} from './time/time.component';
 import {WeatherComponent} from './weather/weather.component';
 import {LoadingComponent} from './loading/loading.component';
 import {CookieService} from "ngx-cookie-service";
+import {ShortcutComponent} from './shortcut/shortcut.component';
 
 @NgModule({
     declarations: [
@@ -15,7 +16,8 @@ import {CookieService} from "ngx-cookie-service";
         SearchComponent,
         TimeComponent,
         WeatherComponent,
-        LoadingComponent
+        LoadingComponent,
+        ShortcutComponent
     ],
     imports: [
         BrowserModule,

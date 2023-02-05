@@ -1,0 +1,12 @@
+<div class="shortcut">
+    <a *ngIf="link1" href="https://{{ link1 }}" [class]="loading1 || loading2 ? 'loading' : ''">
+        <img [src]="icon1 || 'https://' + link1 + '/favicon.ico'" [alt]="title1">
+        <p>{{ title1 }}</p>
+    </a>
+    <div class="padding"></div>
+    <a *ngIf="link2" href="https://{{ link2 }}" [class]="loading1 || loading2 ? 'loading' : ''">
+        <img [src]="icon2 || 'https://' + link2 + '/favicon.ico'" [alt]="title2">
+        <p>{{ title2 }}</p>
+    </a>
+    <app-loading [loading]="loading1 || loading2"></app-loading>
+</div>

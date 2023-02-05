@@ -1,0 +1,54 @@
+@import "../../assets/scss/colors";
+@import "../../assets/scss/mixins";
+
+.shortcut {
+  @include tile();
+  flex-direction: column;
+
+  a {
+    @include row();
+    text-decoration: none;
+    color: $secondary-fg;
+
+    opacity: 1;
+    visibility: visible;
+    padding: 0;
+    margin: 0;
+    width: auto;
+    height: auto;
+    animation: appear-a 900ms ease-in-out;
+
+    img {
+      width: 2rem;
+      height: 2rem;
+      background-color: $primary-fg;
+      border: 1px solid $primary-fg;
+      border-radius: 1rem;
+      outline: none;
+      padding: 0;
+      margin: 0 .65rem 0 0;
+    }
+
+    p {
+      padding: 0;
+      margin: 0;
+    }
+
+    &.loading {
+      opacity: 0;
+      visibility: hidden;
+      height: 0;
+      width: 0;
+      padding: 0;
+      margin: 0;
+      animation: none;
+    }
+  }
+
+  .padding {
+    width: 0;
+    height: .65rem;
+  }
+}
+
+@include appear-animation(appear-a, auto, auto, 0, 0);
