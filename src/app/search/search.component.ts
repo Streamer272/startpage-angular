@@ -6,13 +6,7 @@ import {Component} from '@angular/core';
     styleUrls: ['./search.component.scss']
 })
 export class SearchComponent {
-
-
     public search(query: string) {
         window.location.href = `https://www.google.com/search?q=${query}`
-    }
-
-    public openGoogle() {
-        window.location.href = "https://www.google.com/"
     }
 }

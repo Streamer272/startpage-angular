@@ -1,0 +1,47 @@
+@import "../../assets/colors";
+@import "../../assets/mixins";
+
+.weather {
+  @include tile();
+
+  p {
+    display: inline-block;
+    color: $primary-fg;
+    font-size: 1.5rem;
+    opacity: 1;
+    padding: 0;
+    margin: 0;
+    width: auto;
+    height: auto;
+    visibility: visible;
+    animation: appear 900ms ease-in-out;
+
+    &.loading {
+      opacity: 0;
+      visibility: hidden;
+      height: 0;
+      width: 0;
+      animation: none;
+    }
+  }
+}
+
+@keyframes appear {
+  0%, 50% {
+    opacity: 0;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+  }
+  51% {
+    visibility: visible;
+    width: auto;
+    height: auto;
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+    width: auto;
+    height: auto;
+  }
+}
