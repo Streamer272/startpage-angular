@@ -1,3 +1,12 @@
-<div class="centered">
-    <p>settings works!</p>
+<div class="centered settings">
+    <div class="section">
+        <p class="title">Time</p>
+        <div class="br"></div>
+        <mat-slide-toggle [checked]="false" labelPosition="before" (change)="hourFormatChange(hourFormat.checked)" #hourFormat>24 hour format</mat-slide-toggle>
+    </div>
+
+    <div class="section">
+        <p class="title">Row 1</p>
+        <div class="br"></div>
+    </div>
 </div>

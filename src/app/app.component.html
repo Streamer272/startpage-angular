@@ -1,8 +1,8 @@
 <div class="page">
-    <a class="navigator settings {{ this.url === '/settings' ? 'selected' : '' }} {{ visited.includes('/settings') ? 'visited' : '' }}" routerLink="/">
+    <a class="navigator to-home {{ this.url === '/settings' ? 'selected' : '' }} {{ visited.includes('/settings') ? 'visited' : '' }}" routerLink="/">
         <img src="/assets/images/back.svg" alt="Settings">
     </a>
-    <a class="navigator home {{ this.url === '/' ? 'selected' : '' }} {{ visited.includes('/') ? 'visited' : '' }}" routerLink="/settings">
+    <a class="navigator to-settings {{ this.url === '/' ? 'selected' : '' }} {{ visited.includes('/') ? 'visited' : '' }}" routerLink="/settings">
         <img src="/assets/images/settings.svg" alt="Settings">
     </a>
 

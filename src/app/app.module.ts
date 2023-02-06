@@ -11,6 +11,8 @@ import {CookieService} from "ngx-cookie-service";
 import {ShortcutComponent} from './shortcut/shortcut.component';
 import {SettingsComponent} from './settings/settings.component';
 import {HomeComponent} from './home/home.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 @NgModule({
     declarations: [
@@ -25,7 +27,9 @@ import {HomeComponent} from './home/home.component';
     ],
     imports: [
         BrowserModule,
-        AppRoutingModule
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatSlideToggleModule
     ],
     providers: [CookieService],
     bootstrap: [AppComponent]

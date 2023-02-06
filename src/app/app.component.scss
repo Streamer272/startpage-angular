@@ -20,6 +20,7 @@ $navigator-animation: 250ms ease-in-out;
     cursor: pointer;
     padding: 0;
     margin: 0;
+    z-index: 1;
     transform: scale(0);
 
     img {
@@ -27,11 +28,11 @@ $navigator-animation: 250ms ease-in-out;
       height: 100%;
     }
 
-    &.home {
+    &.to-settings {
       right: .5rem;
     }
 
-    &.settings {
+    &.to-home {
       left: .5rem;
     }
 
