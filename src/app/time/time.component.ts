@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {Component} from '@angular/core';
 import * as moment from 'moment';
 
 @Component({
@@ -6,11 +6,11 @@ import * as moment from 'moment';
     templateUrl: './time.component.html',
     styleUrls: ['./time.component.scss']
 })
-export class TimeComponent implements AfterViewInit {
+export class TimeComponent {
     time: string = ""
     date: string = ""
 
-    ngAfterViewInit() {
+    ngOnInit() {
         this.updateTime()
         setInterval(() => {
             this.updateTime()

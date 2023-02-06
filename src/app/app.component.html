@@ -1,3 +1,10 @@
 <div class="page">
+    <a class="navigator settings {{ this.url === '/settings' ? 'selected' : '' }} {{ visited.includes('/settings') ? 'visited' : '' }}" routerLink="/">
+        <img src="/assets/images/back.svg" alt="Settings">
+    </a>
+    <a class="navigator home {{ this.url === '/' ? 'selected' : '' }} {{ visited.includes('/') ? 'visited' : '' }}" routerLink="/settings">
+        <img src="/assets/images/settings.svg" alt="Settings">
+    </a>
+
     <router-outlet></router-outlet>
 </div>
