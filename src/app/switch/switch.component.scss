@@ -1,0 +1,39 @@
+@import "../../styles";
+
+.switch {
+    @include row();
+
+    .label {
+        font-size: 1rem;
+        margin: 0 .5rem 0 0;
+    }
+
+    .input {
+        @include row();
+        justify-content: flex-start;
+        width: 2.75rem;
+        height: 1.4rem;
+        padding: 0;
+        margin: 0;
+        border: none;
+        border-radius: 1rem;
+        cursor: pointer;
+        background-color: $tertiary-bg;
+
+        .bubble {
+            width: 1rem;
+            height: 1rem;
+            border: none;
+            border-radius: 1rem;
+            background-color: $secondary-bg;
+            pointer-events: none;
+            padding: 0;
+            margin: 0 .2rem;
+        }
+
+        &.on {
+            justify-content: flex-end;
+            background-color: $accent;
+        }
+    }
+}

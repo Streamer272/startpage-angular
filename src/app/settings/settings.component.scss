@@ -25,6 +25,12 @@
       border-radius: 1rem;
     }
 
+    .mat-mdc-slide-toggle {
+        &:not(:first-of-type) {
+            margin-top: .25rem;
+        }
+    }
+
     &:not(:first-of-type) {
       margin-top: 1rem;
     }

@@ -6,7 +6,7 @@ import {Component} from '@angular/core';
     styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent {
-    public hourFormatChange(arg: any) {
-        console.log("CHANGED to ", arg)
+    public setSetting(name: string, value: string | number | boolean) {
+        console.log(`CHANGED ${name} to ${value}`)
     }
 }

@@ -1,8 +1,8 @@
 <div class="centered settings">
     <div class="section">
-        <p class="title">Time</p>
+        <p class="title">Date and Time</p>
         <div class="br"></div>
-        <mat-slide-toggle [checked]="false" labelPosition="before" (change)="hourFormatChange(hourFormat.checked)" #hourFormat>24 hour format</mat-slide-toggle>
+        <app-switch label="24 hour format" [value]="false" [disabled]="false" (change)="setSetting('hour24Format', hour24Format.value)" #hour24Format></app-switch>
     </div>
 
     <div class="section">
