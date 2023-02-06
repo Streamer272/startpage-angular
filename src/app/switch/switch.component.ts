@@ -9,5 +9,10 @@ export class SwitchComponent {
     @Input() label: string = ""
     @Input() value: boolean = false
     @Input() disabled: boolean = false
-    @Output() change: EventEmitter<void> = new EventEmitter<void>()
+    @Output() change: EventEmitter<boolean> = new EventEmitter<boolean>()
+
+    public click() {
+        this.value = !this.value
+        this.change.emit(this.value)
+    }
 }

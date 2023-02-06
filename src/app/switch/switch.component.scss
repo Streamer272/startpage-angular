@@ -2,6 +2,8 @@
 
 .switch {
     @include row();
+    padding: 0;
+    margin: 0;
 
     .label {
         font-size: 1rem;
@@ -9,8 +11,7 @@
     }
 
     .input {
-        @include row();
-        justify-content: flex-start;
+        position: relative;
         width: 2.75rem;
         height: 1.4rem;
         padding: 0;
@@ -19,8 +20,12 @@
         border-radius: 1rem;
         cursor: pointer;
         background-color: $tertiary-bg;
+        transition: background-color 150ms ease-in-out;
 
         .bubble {
+            position: absolute;
+            top: .2rem;
+            left: .25rem;
             width: 1rem;
             height: 1rem;
             border: none;
@@ -28,12 +33,20 @@
             background-color: $secondary-bg;
             pointer-events: none;
             padding: 0;
-            margin: 0 .2rem;
+            margin: 0;
+            transition: left 150ms ease-in-out;
         }
 
         &.on {
-            justify-content: flex-end;
             background-color: $accent;
+
+            .bubble {
+                left: 1.5rem;
+            }
         }
+    }
+
+    &:not(:first-of-type) {
+        margin-top: .5rem;
     }
 }
