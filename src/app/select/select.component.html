@@ -1,4 +1,4 @@
-<div class="select">
+<div class="select {{ disabled ? 'disabled' : '' }}">
     <p class="label">{{ label }}</p>
     <div class="wrapper {{ opened ? 'open' : '' }}">
         <div class="input" (click)="toggle()">
@@ -6,7 +6,7 @@
             <img src="/assets/images/back.svg" alt="Expand" class="icon">
         </div>
         <div class="dropdown">
-            <div *ngFor="let option of options" class="option" (click)="click(option)">
+            <div *ngFor="let option of options; index as i" class="option option-{{ i }}" (click)="click(option)">
                 <p>{{ option }}</p>
             </div>
         </div>

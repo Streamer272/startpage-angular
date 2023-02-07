@@ -9,6 +9,7 @@ export class SelectComponent {
     @Input() label: string = ""
     @Input() value: string = ""
     @Input() options: string[] = []
+    @Input() disabled: boolean = false
     @Output() change: EventEmitter<string> = new EventEmitter<string>()
     opened: boolean = false
 

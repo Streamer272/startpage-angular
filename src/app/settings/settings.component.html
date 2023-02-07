@@ -12,12 +12,14 @@
         <app-switch
             label="Show seconds"
             [value]="settingsService.getSetting('showSeconds')"
+            [disabled]="!settingsService.getSetting('enableTime')"
             (change)="settingsService.setSetting('showSeconds', $event)"
         ></app-switch>
         <div class="spacer"></div>
         <app-select
             label="Hour format" [value]="settingsService.getSetting('hourFormat')"
             [options]="settingsService.OPTIONS['hourFormat']"
+            [disabled]="!settingsService.getSetting('enableTime')"
             (change)="settingsService.setSetting('hourFormat', $event)"
         ></app-select>
     </div>
@@ -35,18 +37,21 @@
         <app-select
             label="Day format" [value]="settingsService.getSetting('dayFormat')"
             [options]="settingsService.OPTIONS['dayFormat']"
+            [disabled]="!settingsService.getSetting('enableDate')"
             (change)="settingsService.setSetting('dayFormat', $event)"
         ></app-select>
         <div class="spacer"></div>
         <app-select
             label="Month format" [value]="settingsService.getSetting('monthFormat')"
             [options]="settingsService.OPTIONS['monthFormat']"
+            [disabled]="!settingsService.getSetting('enableDate')"
             (change)="settingsService.setSetting('monthFormat', $event)"
         ></app-select>
         <div class="spacer"></div>
         <app-select
             label="Year format" [value]="settingsService.getSetting('yearFormat')"
             [options]="settingsService.OPTIONS['yearFormat']"
+            [disabled]="!settingsService.getSetting('enableDate')"
             (change)="settingsService.setSetting('yearFormat', $event)"
         ></app-select>
     </div>

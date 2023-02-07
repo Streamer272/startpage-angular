@@ -1,4 +1,4 @@
-<div class="switch">
+<div class="switch {{ disabled ? 'disabled' : '' }}">
     <p class="label">{{ label }}</p>
     <div class="input {{ value ? 'on' : '' }}" (click)="click()">
         <span class="bubble"></span>

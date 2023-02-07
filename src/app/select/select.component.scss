@@ -1,9 +1,13 @@
 @import "../../styles";
 
+$border-radius: .5rem;
+$animation: 250ms ease-in-out;
+
 .select {
   @include row();
   padding: 0;
   margin: 0;
+  transition: filter $animation;
 
   .label {
     font-size: 1.05rem;
@@ -24,9 +28,10 @@
       height: 2rem;
       background-color: $secondary-bg;
       border: 1px solid $tertiary-bg;
-      border-radius: .25rem;
+      border-radius: $border-radius;
       cursor: pointer;
       z-index: 0;
+      transition: border-radius $animation;
 
       .value {
         margin: 0 .4rem;
@@ -39,7 +44,7 @@
         padding: 0;
         margin: .1rem .4rem 0 0;
         transform: rotate(-90deg);
-        transition: transform 250ms ease-in-out;
+        transition: transform $animation;
       }
     }
 
@@ -48,13 +53,11 @@
       top: 2rem;
       left: 0;
       width: 10rem;
-      height: 0;
-      overflow: hidden;
-      background-color: $secondary-bg;
+      height: auto;
       border: none;
-      border-radius: 0 0 .25rem .25rem;
-      z-index: 1;
-      transition: height 250ms ease-in-out;
+      border-radius: 0;
+      z-index: -1;
+      transition: max-height $animation;
 
       .option {
         @include row();
@@ -64,6 +67,11 @@
         width: 100%;
         height: 2rem;
         cursor: pointer;
+        border: 0.0625rem solid $tertiary-bg;
+        border-radius: 0;
+        background-color: $secondary-bg;
+        transform: scale(0);
+        animation: none;
 
         p {
           padding: 0;
@@ -71,14 +79,18 @@
         }
 
         &:not(:last-of-type) {
-            border-bottom: 1px solid $tertiary-bg;
+          border-bottom: 1px solid $tertiary-bg;
+        }
+
+        &:last-of-type {
+          border-radius: 0 0 $border-radius $border-radius;
         }
       }
     }
 
     &.open {
       .input {
-        border-radius: .25rem .25rem 0 0;
+        border-radius: $border-radius $border-radius 0 0;
 
         .icon {
           transform: rotate(90deg);
@@ -86,9 +98,33 @@
       }
 
       .dropdown {
-        height: auto;
-        border: 1px solid $tertiary-bg;
+        z-index: 1;
+
+        .option {
+          transform: scale(1);
+          animation: appear $animation backwards;
+        }
+
+        @for $i from 0 through 4 {
+          .option-#{$i} {
+            animation-delay: $i * 50ms;
+          }
+        }
       }
     }
+  }
+
+  &.disabled {
+    filter: grayscale(1) brightness(50%);
+    pointer-events: none;
+  }
+}
+
+@keyframes appear {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
   }
 }
