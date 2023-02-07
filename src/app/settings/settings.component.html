@@ -2,9 +2,16 @@
     <div class="section">
         <p class="title">Date and Time</p>
         <div class="br"></div>
-        <app-switch label="24 hour format" [value]="getSetting('hour24Format')" (change)="setSetting('hour24Format', $event)"></app-switch>
+        <app-select label="Hour format" [value]="settingService.getSetting('hourFormat')"
+                    [options]="['12 hour', '24 hour']"
+                    (change)="settingService.setSetting('hourFormat', $event)"
+        ></app-select>
         <div class="spacer"></div>
-        <app-switch label="Show seconds" [value]="getSetting('showSeconds')" (change)="setSetting('showSeconds', $event)"></app-switch>
+        <app-switch
+            label="Show seconds"
+            [value]="settingService.getSetting('showSeconds')"
+            (change)="settingService.setSetting('showSeconds', $event)"
+        ></app-switch>
     </div>
 
     <div class="section">

@@ -1,0 +1,36 @@
+@import "../../styles";
+
+.select {
+  @include row();
+  padding: 0;
+  margin: 0;
+
+  .label {
+    font-size: 1.05rem;
+    padding: 0;
+    margin: 0 .5rem 0 0;
+  }
+
+  .wrapper {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    width: 10rem;
+    height: 2.25rem;
+    background-color: $secondary-bg;
+    border: 1px solid $tertiary-bg;
+    border-radius: .25rem;
+    cursor: pointer;
+
+
+    .dropdown {
+      width: 100%;
+      height: 0;
+      display: none;
+    }
+
+    &.open {
+      border-color: $accent;
+    }
+  }
+}

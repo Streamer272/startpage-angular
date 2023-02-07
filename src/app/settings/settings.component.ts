@@ -7,17 +7,6 @@ import {SettingsService} from "./settings.service";
     styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent {
-    constructor(private settingsService: SettingsService) {
-    }
-
-    ngOnInit() {
-    }
-
-    public getSetting(name: string): any {
-        return this.settingsService.getSetting(name)
-    }
-
-    public setSetting(name: string, value: any) {
-        this.settingsService.setSetting(name, value)
+    constructor(public settingService: SettingsService) {
     }
 }

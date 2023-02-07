@@ -1,1 +1,11 @@
-<p>select works!</p>
+<div class="select" (click)="toggle()">
+    <p class="label">{{ label }}</p>
+    <div class="wrapper">
+        <p class="value">{{ value }}</p>
+        <div class="dropdown {{ opened ? 'open' : '' }}">
+            <div *ngFor="let option of options" class="item">
+                <p>{{ option }}</p>
+            </div>
+        </div>
+    </div>
+</div>

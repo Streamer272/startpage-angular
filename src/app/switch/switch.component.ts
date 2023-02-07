@@ -8,7 +8,6 @@ import {Component, Input, Output, EventEmitter} from '@angular/core';
 export class SwitchComponent {
     @Input() label: string = ""
     @Input() value: boolean = false
-    @Input() disabled: boolean = false
     @Output() change: EventEmitter<boolean> = new EventEmitter<boolean>()
 
     public click() {
