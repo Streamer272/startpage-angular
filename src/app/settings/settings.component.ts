@@ -11,7 +11,7 @@ export class SettingsComponent {
     rows: Tile[][] = []
 
     constructor(public settingsService: SettingsService) {
-        let index = 1;
+        let index = 0;
         while (true) {
             const row = this.settingsService.getSetting(`row${index}`)
             if (row)
@@ -25,8 +25,19 @@ export class SettingsComponent {
     public getType(tile: Tile): string {
         if (tile instanceof Weather)
             return "Weather"
-        else if (tile instanceof Shortcut)
+        else
             return "Shortcut"
-        return typeof tile
+    }
+
+    public changeTile(rowIndex: number, tileIndex: number, property: string) {
+        const value = window.prompt("Enter a new value: ", "")
+        if (!value)
+            return
+
+        const row = this.settingsService.getSetting(`row${rowIndex}`)
+        row[tileIndex][property] = value
+        this.rows[rowIndex] = row
+        console.log(`Setting `, row)
+        this.settingsService.setSetting(`row${rowIndex}`, row)
     }
 }

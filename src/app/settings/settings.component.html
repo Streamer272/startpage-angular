@@ -79,13 +79,20 @@
         <div class="br"></div>
 
         <div class="row">
-            <div class="tile" *ngFor="let tile of settingsService.getSetting('row' + (i + 1).toString())">
+            <div class="tile" *ngFor="let tile of settingsService.getSetting('row' + i.toString()); let ti = index">
                 <p class="type">{{ getType(tile) }}</p>
 
-                <div class="shortcut" *ngIf="getType(tile) == 'Shortcut' && tile.link1 != undefined">
-                    <img [src]="tile.icon1" alt="Favicon" class="icon">
-                    <p class="title">{{ tile.title1 }}</p>
-                    <img src="/assets/images/link.svg" alt="Link" class="link">
+                <div class="shortcuts" *ngIf="getType(tile) == 'Shortcut'">
+                    <div class="shortcut" *ngIf="tile.link1 != undefined">
+                        <img [src]="tile.icon1" alt="Favicon" class="icon" (click)="changeTile(i, ti, 'icon1')">
+                        <p class="title" (click)="changeTile(i, ti, 'title1')">{{ tile.title1 }}</p>
+                        <img src="/assets/images/link.svg" alt="Link" class="link" (click)="changeTile(i, ti, 'link1')">
+                    </div>
+                    <div class="shortcut" *ngIf="tile.link2 != undefined">
+                        <img [src]="tile.icon2" alt="Favicon" class="icon" (click)="changeTile(i, ti, 'icon2')">
+                        <p class="title" (click)="changeTile(i, ti, 'title2')">{{ tile.title2 }}</p>
+                        <img src="/assets/images/link.svg" alt="Link" class="link" (click)="changeTile(i, ti, 'link2')">
+                    </div>
                 </div>
             </div>
         </div>
