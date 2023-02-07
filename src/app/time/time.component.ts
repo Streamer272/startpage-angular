@@ -40,7 +40,6 @@ export class TimeComponent {
             `h:mm${this.settingsService.getSetting("showSeconds") ? ':ss' : ''} A` : `HH:mm${this.settingsService.getSetting("showSeconds") ? ':ss' : ''}`
 
         // date
-        // TODO: fix
         const day = ["ddd ", "dddd ", " "].at(this.settingsService.OPTIONS["dayFormat"].indexOf(this.settingsService.getSetting("dayFormat")))
         const month = ["MMM", "MMMM"].at(this.settingsService.OPTIONS["monthFormat"].indexOf(this.settingsService.getSetting("monthFormat")))
         const year = [", YY", ", YYYY", ""].at(this.settingsService.OPTIONS["yearFormat"].indexOf(this.settingsService.getSetting("yearFormat")))
