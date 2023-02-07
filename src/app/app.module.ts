@@ -13,6 +13,7 @@ import {SettingsComponent} from './settings/settings.component';
 import {HomeComponent} from './home/home.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {SwitchComponent} from './switch/switch.component';
+import { SelectComponent } from './select/select.component';
 
 @NgModule({
     declarations: [
@@ -24,7 +25,8 @@ import {SwitchComponent} from './switch/switch.component';
         ShortcutComponent,
         SettingsComponent,
         HomeComponent,
-        SwitchComponent
+        SwitchComponent,
+        SelectComponent
     ],
     imports: [
         BrowserModule,

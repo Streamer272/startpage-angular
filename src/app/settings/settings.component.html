@@ -3,6 +3,7 @@
         <p class="title">Date and Time</p>
         <div class="br"></div>
         <app-switch label="24 hour format" [value]="getSetting('hour24Format')" (change)="setSetting('hour24Format', $event)"></app-switch>
+        <div class="spacer"></div>
         <app-switch label="Show seconds" [value]="getSetting('showSeconds')" (change)="setSetting('showSeconds', $event)"></app-switch>
     </div>
 
