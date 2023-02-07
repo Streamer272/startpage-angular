@@ -11,8 +11,12 @@
     text-align: center;
 
     &.intro {
-        color: $primary-fg;
-        font-size: 2.5rem;
+      color: $primary-fg;
+      font-size: 2.2rem;
+
+      &.greeting {
+        font-size: 2rem;
+      }
     }
 
     &.time {
@@ -22,7 +26,7 @@
 
     &.date {
       color: $secondary-fg;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
     }
   }
 }

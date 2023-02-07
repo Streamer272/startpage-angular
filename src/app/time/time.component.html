@@ -1,5 +1,5 @@
 <div class="datetime">
-    <p class="intro" *ngIf="settingsService.getSetting('enableIntro')">It's</p>
+    <p class="intro {{ settingsService.getSetting('enableGreeting') ? 'greeting' : '' }}" *ngIf="settingsService.getSetting('enableIntro')">{{ greeting }}</p>
     <p class="time" *ngIf="settingsService.getSetting('enableTime')">{{ time }}</p>
     <p class="date" *ngIf="settingsService.getSetting('enableDate')">{{ date }}</p>
 </div>
