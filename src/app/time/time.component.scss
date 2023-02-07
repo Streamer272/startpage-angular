@@ -1,6 +1,6 @@
 @import "../../styles";
 
-.time {
+.datetime {
   @include row();
 
   flex-direction: column;
@@ -10,14 +10,19 @@
     margin: 0;
     text-align: center;
 
-    &:first-of-type {
+    &.intro {
+        color: $primary-fg;
+        font-size: 2.5rem;
+    }
+
+    &.time {
       color: $primary-fg;
       font-size: 2rem;
     }
 
-    &:last-of-type {
+    &.date {
       color: $secondary-fg;
-      font-size: 1.6rem;
+      font-size: 1.5rem;
     }
   }
 }

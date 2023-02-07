@@ -1,5 +1,23 @@
 <div class="centered settings">
     <div class="section">
+        <p class="title">Introduction</p>
+        <div class="br"></div>
+
+        <app-switch
+            label="Enable introduction"
+            [value]="settingsService.getSetting('enableIntro')"
+            (change)="settingsService.setSetting('enableIntro', $event)"
+        ></app-switch>
+        <div class="spacer"></div>
+        <app-switch
+            label="Enable greeting"
+            [value]="settingsService.getSetting('enableGreeting')"
+            [disabled]="!settingsService.getSetting('enableIntro')"
+            (change)="settingsService.setSetting('enableGreeting', $event)"
+        ></app-switch>
+    </div>
+
+    <div class="section">
         <p class="title">Time</p>
         <div class="br"></div>
 
@@ -54,10 +72,5 @@
             [disabled]="!settingsService.getSetting('enableDate')"
             (change)="settingsService.setSetting('yearFormat', $event)"
         ></app-select>
-    </div>
-
-    <div class="section">
-        <p class="title">Row 1</p>
-        <div class="br"></div>
     </div>
 </div>

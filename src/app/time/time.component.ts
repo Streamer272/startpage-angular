@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import * as moment from 'moment';
+import {SettingsService} from "../settings/settings.service";
 
 @Component({
     selector: 'app-time',
@@ -10,6 +11,9 @@ export class TimeComponent {
     time: string = ""
     date: string = ""
 
+    constructor(public settingsService: SettingsService) {
+    }
+
     ngOnInit() {
         this.updateTime()
         setInterval(() => {
@@ -18,7 +22,7 @@ export class TimeComponent {
     }
 
     private updateTime() {
-        this.time = moment().format("[It's] h:mm A")
+        this.time = moment().format("h:mm A")
         this.date = moment().format("ddd MMM D, YYYY")
     }
 }

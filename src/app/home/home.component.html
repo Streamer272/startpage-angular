@@ -1,5 +1,9 @@
 <div class="centered">
-    <app-time></app-time>
+    <app-time
+        *ngIf="settingsService.getSetting('enableIntro') ||
+        settingsService.getSetting('enableTime') ||
+        settingsService.getSetting('enableDate')"
+    ></app-time>
     <app-search></app-search>
 
     <div class="row">

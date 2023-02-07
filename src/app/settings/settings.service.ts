@@ -13,6 +13,10 @@ export class SettingsService {
     }
 
     constructor() {
+        // intro
+        this.setSetting("enableIntro", true)
+        this.setSetting("enableGreeting", false)
+
         // time
         this.setSetting("enableTime", true)
         this.setSetting("showSeconds", false)
