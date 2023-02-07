@@ -74,21 +74,32 @@
         ></app-select>
     </div>
 
-    <div class="section row" *ngFor="let row of rows, let i = index">
+    <div class="section">
+        <p class="title">Search</p>
+        <div class="br"></div>
+
+        <app-switch
+            label="Enable search"
+            [value]="settingsService.getSetting('enableSearch')"
+            (change)="settingsService.setSetting('enableSearch', $event)"
+        ></app-switch>
+    </div>
+
+    <div class="section" *ngFor="let row of rows, let i = index">
         <p class="title">Row {{ i + 1 }}</p>
         <div class="br"></div>
 
         <div class="row">
-            <div class="tile" *ngFor="let tile of settingsService.getSetting('row' + i.toString()); let ti = index">
-                <p class="type">{{ getType(tile) }}</p>
+            <div class="tile" *ngFor="let tile of row; let ti = index">
+                <p class="type">{{ tile.type }}</p>
 
-                <div class="shortcuts" *ngIf="getType(tile) == 'Shortcut'">
-                    <div class="shortcut" *ngIf="tile.link1 != undefined">
+                <div class="shortcuts" *ngIf="tile.type === 'Shortcut'">
+                    <div class="shortcut" *ngIf="tile.link1 !== undefined">
                         <img [src]="tile.icon1" alt="Favicon" class="icon" (click)="changeTile(i, ti, 'icon1')">
                         <p class="title" (click)="changeTile(i, ti, 'title1')">{{ tile.title1 }}</p>
                         <img src="/assets/images/link.svg" alt="Link" class="link" (click)="changeTile(i, ti, 'link1')">
                     </div>
-                    <div class="shortcut" *ngIf="tile.link2 != undefined">
+                    <div class="shortcut" *ngIf="tile.link2 !== undefined">
                         <img [src]="tile.icon2" alt="Favicon" class="icon" (click)="changeTile(i, ti, 'icon2')">
                         <p class="title" (click)="changeTile(i, ti, 'title2')">{{ tile.title2 }}</p>
                         <img src="/assets/images/link.svg" alt="Link" class="link" (click)="changeTile(i, ti, 'link2')">

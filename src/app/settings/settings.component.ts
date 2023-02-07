@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {SettingsService} from "./settings.service";
-import {Tile, Weather, Shortcut} from "../tile";
+import {Tile} from "../tile";
 
 @Component({
     selector: 'app-settings',
@@ -20,13 +20,6 @@ export class SettingsComponent {
                 break
             index++;
         }
-    }
-
-    public getType(tile: Tile): string {
-        if (tile instanceof Weather)
-            return "Weather"
-        else
-            return "Shortcut"
     }
 
     public changeTile(rowIndex: number, tileIndex: number, property: string) {

@@ -4,19 +4,18 @@
         settingsService.getSetting('enableTime') ||
         settingsService.getSetting('enableDate')"
     ></app-time>
-    <app-search></app-search>
+    <app-search
+        *ngIf="settingsService.getSetting('enableSearch')"
+    ></app-search>
 
-    <div class="row">
-        <app-weather></app-weather>
-
-        <app-shortcut
-            link1="www.google.com" title1="Google"
-            link2="github.com" title2="GitHub"
-        ></app-shortcut>
-
-        <app-shortcut
-            link1="web.whatsapp.com" title1="WhatsApp" icon1="/assets/images/whatsapp.png"
-            link2="reddit.com" title2="Reddit"
-        ></app-shortcut>
+    <div class="row" *ngFor="let row of rows">
+        <div *ngFor="let tile of row">
+            <app-weather *ngIf="tile.type === 'Weather'"></app-weather>
+            <app-shortcut
+                *ngIf="tile.type === 'Shortcut'"
+                [link1]="tile.link1" [title1]="tile.title1" [icon1]="tile.icon1"
+                [link2]="tile.link2" [title2]="tile.title2" [icon2]="tile.icon2"
+            ></app-shortcut>
+        </div>
     </div>
 </div>

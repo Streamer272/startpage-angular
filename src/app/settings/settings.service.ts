@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Weather, Shortcut} from "../tile";
+import {newShortcut, newWeather} from "../tile";
 
 @Injectable({
     providedIn: "root"
@@ -29,11 +29,14 @@ export class SettingsService {
         this.setSetting("monthFormat", this.OPTIONS["monthFormat"][0])
         this.setSetting("yearFormat", this.OPTIONS["yearFormat"][1])
 
+        // search
+        this.setSetting("enableSearch", true)
+
         // rows
         this.setSetting("row0", [
-            new Weather(),
-            new Shortcut("https://www.google.com", "Google", "https://www.google.com/favicon.ico", "https://github.com", "GitHub", "https://github.com/favicon.ico"),
-            new Shortcut("https://reddit.com", "Reddit", "https://reddit.com/favicon.ico")
+            newWeather(),
+            newShortcut("https://www.google.com", "Google", "https://www.google.com/favicon.ico", "https://github.com", "GitHub", "https://github.com/favicon.ico"),
+            newShortcut("https://reddit.com", "Reddit", "https://reddit.com/favicon.ico")
         ])
     }
 
