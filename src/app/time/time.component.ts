@@ -42,8 +42,8 @@ export class TimeComponent {
         // date
         // TODO: fix
         const day = ["ddd ", "dddd ", " "].at(this.settingsService.OPTIONS["dayFormat"].indexOf(this.settingsService.getSetting("dayFormat")))
-        const month = ["MMM", "MMMM"].at(this.settingsService.OPTIONS["dayFormat"].indexOf(this.settingsService.getSetting("dayFormat")))
-        const year = [", YY", ", YYYY", ""].at(this.settingsService.OPTIONS["dayFormat"].indexOf(this.settingsService.getSetting("dayFormat")))
+        const month = ["MMM", "MMMM"].at(this.settingsService.OPTIONS["monthFormat"].indexOf(this.settingsService.getSetting("monthFormat")))
+        const year = [", YY", ", YYYY", ""].at(this.settingsService.OPTIONS["yearFormat"].indexOf(this.settingsService.getSetting("yearFormat")))
         this.dateFormat = `${day}${month} D${year}`
     }
 
@@ -56,6 +56,6 @@ export class TimeComponent {
 
     private updateTime() {
         this.time = moment().format(this.timeFormat)
-        this.date = moment().format("ddd MMM D, YYYY")
+        this.date = moment().format(this.dateFormat)
     }
 }
