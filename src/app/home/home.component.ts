@@ -11,14 +11,6 @@ export class HomeComponent {
     rows: Tile[][] = []
 
     constructor(public settingsService: SettingsService) {
-        let index = 0;
-        while (true) {
-            const row = this.settingsService.getSetting(`row${index}`)
-            if (row)
-                this.rows.push(row)
-            else
-                break
-            index++;
-        }
+        this.rows = this.settingsService.getSetting("rows")
     }
 }

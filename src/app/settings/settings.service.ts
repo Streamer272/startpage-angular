@@ -33,10 +33,12 @@ export class SettingsService {
         this.setSetting("enableSearch", true)
 
         // rows
-        this.setSetting("row0", [
-            newWeather(),
-            newShortcut("https://www.google.com", "Google", "https://www.google.com/favicon.ico", "https://github.com", "GitHub", "https://github.com/favicon.ico"),
-            newShortcut("https://reddit.com", "Reddit", "https://reddit.com/favicon.ico")
+        this.setSetting("rows", [
+            [
+                newWeather(),
+                newShortcut("https://www.google.com", "Google", "https://www.google.com/favicon.ico", "https://github.com", "GitHub", "https://github.com/favicon.ico"),
+                newShortcut("https://reddit.com", "Reddit", "https://reddit.com/favicon.ico")
+            ]
         ])
     }
 

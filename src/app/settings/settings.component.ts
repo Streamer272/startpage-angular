@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {SettingsService} from "./settings.service";
-import {Tile} from "../tile";
+import {Tile, TileTypes} from "../tile";
 
 @Component({
     selector: 'app-settings',
@@ -9,28 +9,41 @@ import {Tile} from "../tile";
 })
 export class SettingsComponent {
     rows: Tile[][] = []
+    tileTypes = Object.keys(TileTypes)
+    newTileType: string
 
     constructor(public settingsService: SettingsService) {
-        let index = 0;
-        while (true) {
-            const row = this.settingsService.getSetting(`row${index}`)
-            if (row)
-                this.rows.push(row)
-            else
-                break
-            index++;
-        }
+        this.rows = this.settingsService.getSetting("rows")
+        this.newTileType = this.tileTypes[0]
     }
+
+    public setNewTileType(newTileType: string) {
+        this.newTileType = newTileType
+    }
+
+    public createNewTile(rowIndex: number) {
+        // @ts-ignore
+        this.rows[rowIndex].push(TileTypes[this.newTileType]())
+        this.settingsService.setSetting("rows", this.rows)
+    }
+
+    public removeRow(rowIndex: number) {
+        this.rows.splice(rowIndex, 1)
+        this.settingsService.setSetting("rows", this.rows)
+    }
+
 
     public changeTile(rowIndex: number, tileIndex: number, property: string) {
         const value = window.prompt("Enter a new value: ", "")
-        if (!value)
+        if (value === null)
             return
 
-        const row = this.settingsService.getSetting(`row${rowIndex}`)
-        row[tileIndex][property] = value
-        this.rows[rowIndex] = row
-        console.log(`Setting `, row)
-        this.settingsService.setSetting(`row${rowIndex}`, row)
+        this.rows[rowIndex][tileIndex][property] = value
+        this.settingsService.setSetting("rows", this.rows)
+    }
+
+    public removeTile(rowIndex: number, tileIndex: number) {
+        this.rows[rowIndex].splice(tileIndex, 1)
+        this.settingsService.setSetting("rows", this.rows)
     }
 }

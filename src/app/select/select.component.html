@@ -1,5 +1,5 @@
 <div class="select {{ disabled ? 'disabled' : '' }}">
-    <p class="label">{{ label }}</p>
+    <p class="label" *ngIf="label">{{ label }}</p>
     <div class="wrapper {{ opened ? 'open' : '' }}">
         <div class="input" (click)="toggle()">
             <p class="value">{{ value }}</p>

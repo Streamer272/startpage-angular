@@ -1,5 +1,10 @@
 export type Tile = any
 
+export const TileTypes = {
+    "Weather": newWeather,
+    "Shortcut": newShortcut
+}
+
 export function newWeather(): Tile {
     return {
         "type": "Weather"
@@ -7,8 +12,8 @@ export function newWeather(): Tile {
 }
 
 export function newShortcut(
-    link1?: string, title1?: string, icon1?: string,
-    link2?: string, title2?: string, icon2?: string
+    link1: string = "http://example.com", title1: string = "Example", icon1: string = "",
+    link2: string = "http://example.com", title2: string = "Example", icon2: string = ""
 ): Tile {
     return {
         "type": "Shortcut",
