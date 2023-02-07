@@ -9,10 +9,16 @@ export class SelectComponent {
     @Input() label: string = ""
     @Input() value: string = ""
     @Input() options: string[] = []
-    @Output() change: EventEmitter<boolean> = new EventEmitter<boolean>()
+    @Output() change: EventEmitter<string> = new EventEmitter<string>()
     opened: boolean = false
 
     public toggle() {
         this.opened = !this.opened
+    }
+
+    public click(target: string) {
+        this.value = target
+        this.change.emit(this.value)
+        this.opened = false
     }
 }

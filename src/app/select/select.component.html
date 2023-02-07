@@ -1,9 +1,12 @@
-<div class="select" (click)="toggle()">
+<div class="select">
     <p class="label">{{ label }}</p>
-    <div class="wrapper">
-        <p class="value">{{ value }}</p>
-        <div class="dropdown {{ opened ? 'open' : '' }}">
-            <div *ngFor="let option of options" class="item">
+    <div class="wrapper {{ opened ? 'open' : '' }}">
+        <div class="input" (click)="toggle()">
+            <p class="value">{{ value }}</p>
+            <img src="/assets/images/back.svg" alt="Expand" class="icon">
+        </div>
+        <div class="dropdown">
+            <div *ngFor="let option of options" class="option" (click)="click(option)">
                 <p>{{ option }}</p>
             </div>
         </div>
