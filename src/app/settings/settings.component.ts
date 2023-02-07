@@ -7,6 +7,6 @@ import {SettingsService} from "./settings.service";
     styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent {
-    constructor(public settingService: SettingsService) {
+    constructor(public settingsService: SettingsService) {
     }
 }

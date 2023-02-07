@@ -1,17 +1,54 @@
 <div class="centered settings">
     <div class="section">
-        <p class="title">Date and Time</p>
+        <p class="title">Time</p>
         <div class="br"></div>
-        <app-select label="Hour format" [value]="settingService.getSetting('hourFormat')"
-                    [options]="['12 hour', '24 hour']"
-                    (change)="settingService.setSetting('hourFormat', $event)"
-        ></app-select>
+
+        <app-switch
+            label="Enable time"
+            [value]="settingsService.getSetting('enableTime')"
+            (change)="settingsService.setSetting('enableTime', $event)"
+        ></app-switch>
         <div class="spacer"></div>
         <app-switch
             label="Show seconds"
-            [value]="settingService.getSetting('showSeconds')"
-            (change)="settingService.setSetting('showSeconds', $event)"
+            [value]="settingsService.getSetting('showSeconds')"
+            (change)="settingsService.setSetting('showSeconds', $event)"
         ></app-switch>
+        <div class="spacer"></div>
+        <app-select
+            label="Hour format" [value]="settingsService.getSetting('hourFormat')"
+            [options]="settingsService.OPTIONS['hourFormat']"
+            (change)="settingsService.setSetting('hourFormat', $event)"
+        ></app-select>
+    </div>
+
+    <div class="section">
+        <p class="title">Date</p>
+        <div class="br"></div>
+
+        <app-switch
+            label="Enable date"
+            [value]="settingsService.getSetting('enableDate')"
+            (change)="settingsService.setSetting('enableDate', $event)"
+        ></app-switch>
+        <div class="spacer"></div>
+        <app-select
+            label="Day format" [value]="settingsService.getSetting('dayFormat')"
+            [options]="settingsService.OPTIONS['dayFormat']"
+            (change)="settingsService.setSetting('dayFormat', $event)"
+        ></app-select>
+        <div class="spacer"></div>
+        <app-select
+            label="Month format" [value]="settingsService.getSetting('monthFormat')"
+            [options]="settingsService.OPTIONS['monthFormat']"
+            (change)="settingsService.setSetting('monthFormat', $event)"
+        ></app-select>
+        <div class="spacer"></div>
+        <app-select
+            label="Year format" [value]="settingsService.getSetting('yearFormat')"
+            [options]="settingsService.OPTIONS['yearFormat']"
+            (change)="settingsService.setSetting('yearFormat', $event)"
+        ></app-select>
     </div>
 
     <div class="section">
