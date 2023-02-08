@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "startpage-5fb40"
+  },
+  "targets": {
+    "startpage-5fb40": {
+      "hosting": {
+        "start": [
+          "startpage-5fb40"
+        ]
+      }
+    }
   }
 }

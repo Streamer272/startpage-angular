@@ -13,7 +13,11 @@ import {SettingsComponent} from './settings/settings.component';
 import {HomeComponent} from './home/home.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {SwitchComponent} from './switch/switch.component';
-import { SelectComponent } from './select/select.component';
+import {SelectComponent} from './select/select.component';
+import {environment} from '../environments/environment';
+import {AngularFireModule} from "@angular/fire/compat";
+import {AngularFirestoreModule} from "@angular/fire/compat/firestore";
+import {AngularFireAuthModule} from "@angular/fire/compat/auth";
 
 @NgModule({
     declarations: [
@@ -31,7 +35,10 @@ import { SelectComponent } from './select/select.component';
     imports: [
         BrowserModule,
         AppRoutingModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        AngularFirestoreModule,
+        AngularFireAuthModule
     ],
     providers: [CookieService],
     bootstrap: [AppComponent]

@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
 import {newShortcut, newWeather} from "../tile";
+import {AngularFireAuth} from "@angular/fire/compat/auth";
 
 @Injectable({
     providedIn: "root"
@@ -13,7 +14,7 @@ export class SettingsService {
         "yearFormat": ["Short (23)", "Long (2023)", "Don't show year"]
     }
 
-    constructor() {
+    constructor(public auth: AngularFireAuth) {
         // intro
         this.setSetting("enableIntro", true)
         this.setSetting("enableGreeting", false)
