@@ -27,12 +27,6 @@ export class SettingsComponent {
         this.settingsService.setSetting("rows", this.rows)
     }
 
-    public removeRow(rowIndex: number) {
-        this.rows.splice(rowIndex, 1)
-        this.settingsService.setSetting("rows", this.rows)
-    }
-
-
     public changeTile(rowIndex: number, tileIndex: number, property: string) {
         const value = window.prompt("Enter a new value: ", "")
         if (value === null)
@@ -44,6 +38,16 @@ export class SettingsComponent {
 
     public removeTile(rowIndex: number, tileIndex: number) {
         this.rows[rowIndex].splice(tileIndex, 1)
+        this.settingsService.setSetting("rows", this.rows)
+    }
+
+    public createRow() {
+        this.rows.push([])
+        this.settingsService.setSetting("rows", this.rows)
+    }
+
+    public removeRow(rowIndex: number) {
+        this.rows.splice(rowIndex, 1)
         this.settingsService.setSetting("rows", this.rows)
     }
 }

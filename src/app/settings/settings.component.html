@@ -86,23 +86,31 @@
     </div>
 
     <div class="section" *ngFor="let row of rows, let rowIndex = index">
-        <p class="title">Row<img src="/assets/images/delete.svg" alt="Remove" class="delete" (click)="removeRow(rowIndex)"></p>
+        <p class="title">Row<img src="/assets/images/delete.svg" alt="Remove" class="delete"
+                                 (click)="removeRow(rowIndex)"></p>
         <div class="br"></div>
 
         <div class="row">
             <div class="tile" *ngFor="let tile of row; let tileIndex = index">
-                <p class="type">{{ tile.type }}<img src="/assets/images/delete.svg" alt="Remove" class="delete" (click)="removeTile(rowIndex, tileIndex)"></p>
+                <p class="type">{{ tile.type }}<img src="/assets/images/delete.svg" alt="Remove" class="delete"
+                                                    (click)="removeTile(rowIndex, tileIndex)"></p>
 
                 <div class="shortcuts" *ngIf="tile.type === 'Shortcut'">
                     <div class="shortcut" *ngIf="tile.link1 !== undefined">
-                        <img [src]="tile.icon1" alt="Favicon" class="icon" (click)="changeTile(rowIndex, tileIndex, 'icon1')">
-                        <p class="title" (click)="changeTile(rowIndex, tileIndex, 'title1')">{{ tile.title1 || '[empty]' }}</p>
-                        <img src="/assets/images/link.svg" alt="Link" class="link" (click)="changeTile(rowIndex, tileIndex, 'link1')">
+                        <img [src]="tile.icon1" alt="Favicon" class="icon"
+                             (click)="changeTile(rowIndex, tileIndex, 'icon1')">
+                        <p class="title" (click)="changeTile(rowIndex, tileIndex, 'title1')">{{ tile.title1 || '[empty]'
+                            }}</p>
+                        <img src="/assets/images/link.svg" alt="Link" class="link"
+                             (click)="changeTile(rowIndex, tileIndex, 'link1')">
                     </div>
                     <div class="shortcut" *ngIf="tile.link2 !== undefined">
-                        <img [src]="tile.icon2" alt="Favicon" class="icon" (click)="changeTile(rowIndex, tileIndex, 'icon2')">
-                        <p class="title" (click)="changeTile(rowIndex, tileIndex, 'title2')">{{ tile.title2 || '[empty]' }}</p>
-                        <img src="/assets/images/link.svg" alt="Link" class="link" (click)="changeTile(rowIndex, tileIndex, 'link2')">
+                        <img [src]="tile.icon2" alt="Favicon" class="icon"
+                             (click)="changeTile(rowIndex, tileIndex, 'icon2')">
+                        <p class="title" (click)="changeTile(rowIndex, tileIndex, 'title2')">{{ tile.title2 || '[empty]'
+                            }}</p>
+                        <img src="/assets/images/link.svg" alt="Link" class="link"
+                             (click)="changeTile(rowIndex, tileIndex, 'link2')">
                     </div>
                 </div>
             </div>
@@ -115,5 +123,10 @@
                 <img src="/assets/images/add.svg" alt="Create" class="add" (click)="createNewTile(rowIndex)">
             </div>
         </div>
+    </div>
+
+    <div class="section">
+        <div class="br"></div>
+        <img src="/assets/images/add.svg" alt="Create" class="create" (click)="createRow()">
     </div>
 </div>

@@ -10,17 +10,17 @@
     width: 30vw;
 
     .title {
-        @include row();
+      @include row();
       font-size: 1.5rem;
       padding: 0;
       margin: 0;
 
       .delete {
-          width: 2rem;
-          height: 2rem;
-          padding: 0;
-          margin: 0 0 0 .5rem;
-          cursor: pointer;
+        width: 2rem;
+        height: 2rem;
+        padding: 0;
+        margin: 0 0 0 .5rem;
+        cursor: pointer;
       }
     }
 
@@ -49,17 +49,17 @@
         padding: .5rem;
 
         .type {
-            @include row();
+          @include row();
           font-size: 1.2rem;
           font-weight: bold;
           margin: 0;
 
           .delete {
-              width: 1.5rem;
-              height: 1.5rem;
-              padding: 0;
-              margin: 0 0 0 .5rem;
-              cursor: pointer;
+            width: 1.5rem;
+            height: 1.5rem;
+            padding: 0;
+            margin: 0 0 0 .5rem;
+            cursor: pointer;
           }
         }
 
@@ -109,17 +109,33 @@
         }
 
         .add {
-            width: 2.5rem;
-            height: 2.5rem;
-            padding: 0;
-            margin: .5rem 0 0 0;
-            cursor: pointer;
+          width: 2.5rem;
+          height: 2.5rem;
+          padding: 0;
+          margin: .5rem 0 0 0;
+          cursor: pointer;
         }
       }
     }
 
     &:not(:first-of-type) {
       margin-top: 1rem;
+    }
+
+    &:last-of-type {
+      margin-top: 0;
+
+      .br {
+        margin-top: 0;
+      }
+
+      .create {
+        width: 3.5rem;
+        height: 3.5rem;
+        padding: 0;
+        margin: 0;
+        cursor: pointer;
+      }
     }
   }
 }

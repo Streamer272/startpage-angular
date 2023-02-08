@@ -2,4 +2,9 @@
 
 .row {
     @include row();
+    margin-bottom: 0;
+
+    &:not(:first-of-type) {
+        margin-top: 0;
+    }
 }
