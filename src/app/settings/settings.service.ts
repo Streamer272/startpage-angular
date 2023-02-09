@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {newShortcut, newWeather} from "../tile";
 import {AngularFireAuth} from "@angular/fire/compat/auth";
+import {GoogleAuthProvider} from "firebase/auth";
 
 @Injectable({
     providedIn: "root"
@@ -15,6 +16,8 @@ export class SettingsService {
     }
 
     constructor(public auth: AngularFireAuth) {
+        this.registerAuthListener(this.onAuthStateChanged)
+
         // intro
         this.setSetting("enableIntro", true)
         this.setSetting("enableGreeting", false)
@@ -49,5 +52,26 @@ export class SettingsService {
 
     public setSetting(name: string, value: any) {
         this.settings.set(name, value)
+    }
+
+    public async signIn() {
+        const provider = new GoogleAuthProvider()
+        await this.auth.signInWithPopup(provider).catch(this.handleError)
+    }
+
+    public signOut() {
+        this.auth.signOut()
+    }
+
+    private onAuthStateChanged(user: any) {
+        console.log("User changed to", user, typeof user)
+    }
+
+    public registerAuthListener(callback: any) {
+        this.auth.onAuthStateChanged(callback).catch(this.handleError)
+    }
+
+    private handleError(error: any) {
+        console.error("Error:", error)
     }
 }

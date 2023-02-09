@@ -1,5 +1,6 @@
 import {Component} from '@angular/core'
 import {NavigationEnd, Router} from "@angular/router";
+import {SettingsService} from "./settings/settings.service";
 
 @Component({
     selector: 'app-root',
@@ -9,8 +10,9 @@ import {NavigationEnd, Router} from "@angular/router";
 export class AppComponent {
     url: string = "/"
     visited: string[] = []
+    loggedIn: boolean = false
 
-    constructor(private router: Router) {
+    constructor(private router: Router, public settingsService: SettingsService) {
         this.url = this.router.url
         this.router.events.subscribe((route) => {
             if (route instanceof NavigationEnd) {
@@ -19,5 +21,13 @@ export class AppComponent {
                     this.visited.push(route.url)
             }
         })
+
+        this.settingsService.registerAuthListener((user: any) => {
+            this.loggedIn = !!user;
+        })
+    }
+
+    public async signIn() {
+        await this.settingsService.signIn()
     }
 }

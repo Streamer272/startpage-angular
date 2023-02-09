@@ -1,10 +1,18 @@
 <div class="app">
-    <a class="navigator to-home {{ this.url === '/settings' ? 'selected' : '' }} {{ visited.includes('/settings') ? 'visited' : '' }}" routerLink="/">
+    <a class="navigator left {{ this.url === '/settings' ? 'selected' : '' }} {{ visited.includes('/settings') ? 'visited' : '' }}"
+       routerLink="/" *ngIf="loggedIn">
         <img src="/assets/images/back.svg" alt="Settings">
     </a>
-    <a class="navigator to-settings {{ this.url === '/' ? 'selected' : '' }} {{ visited.includes('/') ? 'visited' : '' }}" routerLink="/settings">
+    <a class="navigator right {{ this.url === '/' ? 'selected' : '' }} {{ visited.includes('/') ? 'visited' : '' }}"
+       routerLink="/settings" *ngIf="loggedIn">
         <img src="/assets/images/settings.svg" alt="Settings">
     </a>
+
+    <button
+        class="navigator right {{ this.url === '/' ? 'selected' : '' }} {{ visited.includes('/') ? 'visited' : '' }}"
+        (click)="signIn()" *ngIf="!loggedIn">
+        <img src="/assets/images/login.svg" alt="Log in">
+    </button>
 
     <router-outlet></router-outlet>
 </div>
