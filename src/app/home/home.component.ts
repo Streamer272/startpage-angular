@@ -9,6 +9,7 @@ import {Tile} from "../tile";
 })
 export class HomeComponent {
     rows: Tile[][] = []
+    state: boolean = false
 
     constructor(public settingsService: SettingsService) {
         this.rows = this.settingsService.getSetting("rows")

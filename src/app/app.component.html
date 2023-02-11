@@ -1,4 +1,4 @@
-<div class="app">
+<div class="app" *ngIf="!loading">
     <a class="navigator left {{ this.url === '/settings' ? 'selected' : '' }} {{ visited.includes('/settings') ? 'visited' : '' }}"
        routerLink="/" *ngIf="loggedIn">
         <img src="/assets/images/back.svg" alt="Settings">
@@ -15,4 +15,8 @@
     </button>
 
     <router-outlet></router-outlet>
+</div>
+
+<div class="app centered" *ngIf="loading">
+    <app-loading [loading]="true"></app-loading>
 </div>

@@ -2,39 +2,82 @@ import {Injectable} from "@angular/core";
 import {newShortcut, newWeather} from "../tile";
 import {AngularFireAuth} from "@angular/fire/compat/auth";
 import {GoogleAuthProvider} from "firebase/auth";
+import {AngularFirestore, AngularFirestoreCollection, DocumentChangeAction} from '@angular/fire/compat/firestore';
+import {Router} from "@angular/router";
+
+export enum SettingsKeys {
+    ENABLE_INTRO = "enableIntro",
+    ENABLE_GREETING = "enableGreeting",
+    ENABLE_TIME = "enableTime",
+    SHOW_SECONDS = "showSeconds",
+    HOUR_FORMAT = "hourFormat",
+    ENABLE_DATE = "enableDate",
+    DAY_FORMAT = "dayFormat",
+    MONTH_FORMAT = "monthFormat",
+    YEAR_FORMAT = "yearFormat",
+    ENABLE_SEARCH = "enableSearch",
+    ROWS = "rows"
+}
+
+export interface Settings {
+    // intro
+    enableIntro: boolean
+    enableGreeting: boolean
+    // time
+    enableTime: boolean
+    showSeconds: boolean
+    hourFormat: string
+    // date
+    enableDate: boolean
+    dayFormat: string
+    monthFormat: string
+    yearFormat: string
+    // search
+    enableSearch: boolean
+    // rows
+    rows: Array<Array<any>>
+
+    // magic
+    [query: string]: any
+}
+
+export const SETTINGS_OPTIONS = {
+    "hourFormat": ["12 hour", "24 hour"],
+    "dayFormat": ["Short (Mon)", "Long (Monday)", "Don't show day"],
+    "monthFormat": ["Short (Jan)", "Long (January)"],
+    "yearFormat": ["Short (23)", "Long (2023)", "Don't show year"]
+}
 
 @Injectable({
     providedIn: "root"
 })
 export class SettingsService {
-    private settings: Map<string, any> = new Map<string, any>()
-    public OPTIONS = {
-        "hourFormat": ["12 hour", "24 hour"],
-        "dayFormat": ["Short (Mon)", "Long (Monday)", "Don't show day"],
-        "monthFormat": ["Short (Jan)", "Long (January)"],
-        "yearFormat": ["Short (23)", "Long (2023)", "Don't show year"]
+    private settings: Settings = {
+        // intro
+        enableIntro: true,
+        enableGreeting: false,
+        // time
+        enableTime: true,
+        showSeconds: false,
+        hourFormat: SETTINGS_OPTIONS[SettingsKeys.HOUR_FORMAT][0],
+        // date
+        enableDate: true,
+        dayFormat: SETTINGS_OPTIONS[SettingsKeys.DAY_FORMAT][0],
+        monthFormat: SETTINGS_OPTIONS[SettingsKeys.MONTH_FORMAT][0],
+        yearFormat: SETTINGS_OPTIONS[SettingsKeys.YEAR_FORMAT][0],
+        // search
+        enableSearch: true,
+        // rows
+        rows: []
+    }
+    public OPTIONS = SETTINGS_OPTIONS
+
+    private settingsCollection?: AngularFirestoreCollection<Settings>
+    private ready: Function = () => {
     }
 
-    constructor(public auth: AngularFireAuth) {
+    constructor(public auth: AngularFireAuth, private firestore: AngularFirestore, private router: Router) {
         this.registerAuthListener(this.onAuthStateChanged)
-
-        // intro
-        this.setSetting("enableIntro", true)
-        this.setSetting("enableGreeting", false)
-
-        // time
-        this.setSetting("enableTime", true)
-        this.setSetting("showSeconds", false)
-        this.setSetting("hourFormat", this.OPTIONS["hourFormat"][0])
-
-        // date
-        this.setSetting("enableDate", true)
-        this.setSetting("dayFormat", this.OPTIONS["dayFormat"][0])
-        this.setSetting("monthFormat", this.OPTIONS["monthFormat"][0])
-        this.setSetting("yearFormat", this.OPTIONS["yearFormat"][1])
-
-        // search
-        this.setSetting("enableSearch", true)
 
         // rows
         this.setSetting("rows", [
@@ -46,12 +89,20 @@ export class SettingsService {
         ])
     }
 
-    public getSetting(name: string): any {
-        return this.settings.get(name)
+    public getSetting(name: SettingsKeys | string): any {
+        const value = this.settings[name]
+        if (name === SettingsKeys.ROWS) {
+            return JSON.parse(value as string)
+        }
+        return value
     }
 
-    public setSetting(name: string, value: any) {
-        this.settings.set(name, value)
+    public setSetting(name: SettingsKeys | string, value: any) {
+        if (name === SettingsKeys.ROWS) {
+            this.settings[name] = JSON.stringify(value) as any
+        } else {
+            this.settings[name] = value
+        }
     }
 
     public async signIn() {
@@ -63,12 +114,31 @@ export class SettingsService {
         this.auth.signOut()
     }
 
-    private onAuthStateChanged(user: any) {
-        console.log("User changed to", user, typeof user)
+    private onAuthStateChanged(user: any, self: SettingsService) {
+        console.log("User change detected:", user)
+        if (!user)
+            return
+
+        self.settingsCollection = self.firestore.collection<Settings>("settings", (ref) => ref.where("uid", "==", user.uid).limit(1))
+        self.settingsCollection.snapshotChanges().subscribe((actions) => {
+            actions.map((doc) => {
+
+            })
+        })
+        const fsSettings = self.settingsCollection.valueChanges()
+        fsSettings.subscribe((settings: Settings[]) => {
+            console.log("Settings change detected:", settings[0])
+            self.settings = settings[0]
+            this.ready()
+            const location = self.router.url
+            self.router.navigate(["/"], {skipLocationChange: true}).then(() => {
+                self.router.navigate([location]);
+            })
+        })
     }
 
     public registerAuthListener(callback: any) {
-        this.auth.onAuthStateChanged(callback).catch(this.handleError)
+        this.auth.onAuthStateChanged((user) => callback(user, this)).catch(this.handleError)
     }
 
     private handleError(error: any) {

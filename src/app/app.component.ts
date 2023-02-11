@@ -11,6 +11,7 @@ export class AppComponent {
     url: string = "/"
     visited: string[] = []
     loggedIn: boolean = false
+    loading: boolean = true
 
     constructor(private router: Router, public settingsService: SettingsService) {
         this.url = this.router.url
@@ -24,6 +25,9 @@ export class AppComponent {
 
         this.settingsService.registerAuthListener((user: any) => {
             this.loggedIn = !!user;
+        })
+        this.settingsService.registerReady(() => {
+            this.loading = false
         })
     }
 
