@@ -8,7 +8,7 @@
         *ngIf="settingsService.getSetting('enableSearch')"
     ></app-search>
 
-    <div class="row" *ngFor="let row of rows">
+    <div class="row" *ngFor="let row of settingsService.getSetting('rows')">
         <div *ngFor="let tile of row">
             <app-weather *ngIf="tile.type === 'Weather'"></app-weather>
             <app-shortcut

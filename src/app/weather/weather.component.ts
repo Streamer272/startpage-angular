@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {Component} from '@angular/core';
 import axios from "axios";
 import {CookieService} from "ngx-cookie-service";
 
@@ -7,23 +7,18 @@ import {CookieService} from "ngx-cookie-service";
     templateUrl: './weather.component.html',
     styleUrls: ['./weather.component.scss']
 })
-export class WeatherComponent implements AfterViewInit {
+export class WeatherComponent {
     temp: string = ""
-    weatherImage?: string = undefined
+    weatherImage?: string
 
     constructor(private cookieService: CookieService) {
-    }
-
-    ngAfterViewInit() {
         this.getWeather()
     }
 
     private getWeather(useCookies: boolean = true) {
         if (this.cookieService.check("temp") && useCookies) {
-            setTimeout(() => {
-                this.temp = this.cookieService.get("temp")
-                this.weatherImage = this.cookieService.get("weatherImage")
-            }, 800)
+            this.temp = this.cookieService.get("temp")
+            this.weatherImage = this.cookieService.get("weatherImage")
             return
         }
 

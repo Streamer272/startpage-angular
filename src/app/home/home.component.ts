@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {SettingsService} from "../settings/settings.service";
-import {Tile} from "../tile";
 
 @Component({
     selector: 'app-home',
@@ -8,10 +7,11 @@ import {Tile} from "../tile";
     styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-    rows: Tile[][] = []
-    state: boolean = false
+    update: boolean = false
 
     constructor(public settingsService: SettingsService) {
-        this.rows = this.settingsService.getSetting("rows")
+        this.settingsService.update.subscribe(() => {
+            this.update = !this.update
+        })
     }
 }

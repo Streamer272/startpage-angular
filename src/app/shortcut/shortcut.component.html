@@ -1,12 +1,11 @@
 <div class="shortcut">
-    <a *ngIf="link1" [href]="link1" [class]="loading1 || loading2 ? 'loading' : ''">
+    <a *ngIf="link1" [href]="link1">
         <img [src]="icon1" [alt]="title1" *ngIf="icon1">
         <p>{{ title1 }}</p>
     </a>
     <div class="padding"></div>
-    <a *ngIf="link2" [href]="link2" [class]="loading1 || loading2 ? 'loading' : ''">
+    <a *ngIf="link2" [href]="link2">
         <img [src]="icon2" [alt]="title2" *ngIf="icon2">
         <p>{{ title2 }}</p>
     </a>
-    <app-loading [loading]="loading1 || loading2"></app-loading>
 </div>

@@ -31,7 +31,7 @@ export class AppComponent {
         })
     }
 
-    public async signIn() {
-        await this.settingsService.signIn()
+    public print() {
+        console.log("RERENDER")
     }
 }

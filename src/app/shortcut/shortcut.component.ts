@@ -12,13 +12,4 @@ export class ShortcutComponent {
     @Input() title2?: string
     @Input() icon1?: string = ""
     @Input() icon2?: string = ""
-    loading1?: boolean = true
-    loading2?: boolean = true
-
-    ngOnInit() {
-        setTimeout(() => {
-            this.loading1 = false
-            this.loading2 = false
-        }, 800)
-    }
 }

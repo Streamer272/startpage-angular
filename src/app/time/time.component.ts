@@ -44,16 +44,7 @@ export class TimeComponent {
         const month = ["MMM", "MMMM"].at(this.settingsService.OPTIONS["monthFormat"].indexOf(this.settingsService.getSetting("monthFormat")))
         const year = [", YY", ", YYYY", ""].at(this.settingsService.OPTIONS["yearFormat"].indexOf(this.settingsService.getSetting("yearFormat")))
         this.dateFormat = `${day}${month} D${year}`
-    }
 
-    ngOnInit() {
-        this.updateTime()
-        setInterval(() => {
-            this.updateTime()
-        }, 500);
-    }
-
-    private updateTime() {
         this.time = moment().format(this.timeFormat)
         this.date = moment().format(this.dateFormat)
     }
