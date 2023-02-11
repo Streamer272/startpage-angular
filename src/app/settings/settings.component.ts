@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {SettingsService} from "./settings.service";
-import {Tile, TileTypes} from "../tile";
-import {Router} from "@angular/router";
+import {TileTypes} from "../tile";
 
 @Component({
     selector: 'app-settings',
@@ -12,13 +11,8 @@ export class SettingsComponent {
     tileTypes = Object.keys(TileTypes)
     newTileType: string
 
-    constructor(public settingsService: SettingsService, private router: Router) {
+    constructor(public settingsService: SettingsService) {
         this.newTileType = this.tileTypes[0]
-
-        this.settingsService.registerAuthListener((user: any) => {
-            if (!user)
-                router.navigate(["/"]).catch()
-        })
     }
 
     public setNewTileType(newTileType: string) {

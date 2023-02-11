@@ -1,29 +1,12 @@
-<div class="app" *ngIf="ready">
+<div class="app">
     <a class="navigator left {{ url === '/settings' ? 'selected' : '' }} {{ visited.includes('/settings') ? 'visited' : '' }}"
-       routerLink="/" *ngIf="loggedIn">
+       routerLink="/">
         <img src="/assets/images/back.svg" alt="Settings">
     </a>
     <a class="navigator right {{ url === '/' ? 'selected' : '' }} {{ visited.includes('/') ? 'visited' : '' }}"
-       routerLink="/settings" *ngIf="loggedIn">
+       routerLink="/settings">
         <img src="/assets/images/settings.svg" alt="Settings">
     </a>
 
-    <button
-        class="navigator right {{ url === '/' ? 'selected' : '' }} {{ visited.includes('/') ? 'visited' : '' }}"
-        (click)="settingsService.signIn()" *ngIf="!loggedIn">
-        <img src="/assets/images/login.svg" alt="Log in">
-    </button>
-
-    {{print()}}
     <router-outlet></router-outlet>
-</div>
-
-<div class="app centered" *ngIf="!ready">
-    <button
-        class="navigator right selected visited"
-        (click)="settingsService.signIn()" *ngIf="loggedIn">
-        <img src="/assets/images/login.svg" alt="Log in">
-    </button>
-
-    <app-loading [loading]="true"></app-loading>
 </div>

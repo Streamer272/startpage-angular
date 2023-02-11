@@ -7,11 +7,6 @@ import {SettingsService} from "../settings/settings.service";
     styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-    update: boolean = false
-
     constructor(public settingsService: SettingsService) {
-        this.settingsService.update.subscribe(() => {
-            this.update = !this.update
-        })
     }
 }

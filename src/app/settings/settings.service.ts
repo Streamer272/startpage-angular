@@ -1,8 +1,4 @@
 import {EventEmitter, Injectable} from "@angular/core";
-import {AngularFireAuth} from "@angular/fire/compat/auth";
-import {GoogleAuthProvider} from "firebase/auth";
-import {AngularFirestore} from '@angular/fire/compat/firestore';
-import {Router} from "@angular/router";
 
 export interface Settings {
     // intro
@@ -78,21 +74,18 @@ export const SETTINGS_DEFAULT = {
     providedIn: "root"
 })
 export class SettingsService {
-    private settingsId?: string
-    private settings?: Settings
-
-    public ready: EventEmitter<boolean> = new EventEmitter<boolean>()
-    public update: EventEmitter<boolean> = new EventEmitter<boolean>()
+    private readonly settings: Settings = SETTINGS_DEFAULT
     public OPTIONS = SETTINGS_OPTIONS
 
-    constructor(public auth: AngularFireAuth, private firestore: AngularFirestore) {
-        this.registerAuthListener(this.onAuthStateChanged)
+    constructor() {
+        const value = localStorage.getItem("settings")
+        if (value)
+            this.settings = JSON.parse(value)
+        else
+            localStorage.setItem("settings", JSON.stringify(this.settings))
     }
 
-    public getSetting(name: string): any | undefined {
-        if (!this.settings)
-            return undefined
-
+    public getSetting(name: string): any {
         const value = this.settings[name]
         if (name === "rows") {
             return JSON.parse(value as string)
@@ -101,63 +94,11 @@ export class SettingsService {
     }
 
     public setSetting(name: string, value: any) {
-        if (!this.settings)
-            return
-
         if (name === "rows") {
             this.settings[name] = JSON.stringify(value) as any
         } else {
             this.settings[name] = value
         }
-
-        if (!this.settingsId)
-            return
-        const doc = this.firestore.doc<Settings>(`settings/${this.settingsId}`)
-        doc.update(this.settings).catch(this.handleError)
-    }
-
-    public async signIn() {
-        const provider = new GoogleAuthProvider()
-        await this.auth.signInWithPopup(provider).then((result) => {
-            if (!result.additionalUserInfo?.isNewUser)
-                return
-
-            const settings = SETTINGS_DEFAULT
-            settings.uid = result.user?.uid!!
-            this.firestore.collection<Settings>("settings").add(settings).catch(this.handleError)
-        }).catch(this.handleError)
-    }
-
-    public signOut() {
-        this.auth.signOut().catch(this.handleError)
-    }
-
-    private onAuthStateChanged(user: any, self: SettingsService) {
-        if (!user) {
-            self.settings = SETTINGS_DEFAULT
-            self.ready.emit(true)
-            self.update.emit()
-            return
-        }
-
-        const settingsCollection = self.firestore.collection<Settings>("settings", (ref) => ref.where("uid", "==", user.uid).limit(1))
-        settingsCollection.snapshotChanges().subscribe((actions) => {
-            actions.map((action) => {
-                const doc = action.payload.doc
-                self.settingsId = doc.id
-                self.settings = doc.data()
-
-                self.ready.emit(true)
-                self.update.emit()
-            })
-        })
-    }
-
-    public registerAuthListener(callback: any) {
-        this.auth.onAuthStateChanged((user) => callback(user, this)).catch(this.handleError)
-    }
-
-    private handleError(error: any) {
-        console.error("Error:", error)
+        localStorage.setItem("settings", JSON.stringify(this.settings))
     }
 }

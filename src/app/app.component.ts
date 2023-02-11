@@ -10,8 +10,6 @@ import {SettingsService} from "./settings/settings.service";
 export class AppComponent {
     url: string = "/"
     visited: string[] = []
-    loggedIn: boolean = false
-    ready: boolean = false
 
     constructor(private router: Router, public settingsService: SettingsService) {
         this.url = this.router.url
@@ -22,16 +20,5 @@ export class AppComponent {
                     this.visited.push(route.url)
             }
         })
-
-        this.settingsService.registerAuthListener((user: any) => {
-            this.loggedIn = !!user;
-        })
-        this.settingsService.ready.subscribe((ready) => {
-            this.ready = ready
-        })
-    }
-
-    public print() {
-        console.log("RERENDER")
     }
 }
