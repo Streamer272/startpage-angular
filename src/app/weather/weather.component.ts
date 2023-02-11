@@ -59,7 +59,6 @@ export class WeatherComponent implements AfterViewInit {
     private getImageFromWeatherCode(code: number): string | undefined {
         const prefix = "/assets/images/"
 
-        console.log("checking ", code)
         if (0 <= code && code <= 5)
             return prefix + "sunny.png"
         else if (6 <= code && code <= 19)

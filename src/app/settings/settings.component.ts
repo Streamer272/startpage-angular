@@ -9,12 +9,10 @@ import {Router} from "@angular/router";
     styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent {
-    rows: Tile[][] = []
     tileTypes = Object.keys(TileTypes)
     newTileType: string
 
     constructor(public settingsService: SettingsService, private router: Router) {
-        this.rows = this.settingsService.getSetting("rows")
         this.newTileType = this.tileTypes[0]
 
         this.settingsService.registerAuthListener((user: any) => {
@@ -28,32 +26,37 @@ export class SettingsComponent {
     }
 
     public createNewTile(rowIndex: number) {
+        const rows = this.settingsService.getSetting("rows")
         // @ts-ignore
-        this.rows[rowIndex].push(TileTypes[this.newTileType]())
-        this.settingsService.setSetting("rows", this.rows)
+        rows[rowIndex].push(TileTypes[this.newTileType]())
+        this.settingsService.setSetting("rows", rows)
     }
 
     public changeTile(rowIndex: number, tileIndex: number, property: string) {
         const value = window.prompt("Enter a new value: ", "")
-        if (value === null)
+        if (value == null)
             return
 
-        this.rows[rowIndex][tileIndex][property] = value
-        this.settingsService.setSetting("rows", this.rows)
+        const rows = this.settingsService.getSetting("rows")
+        rows[rowIndex][tileIndex][property] = value
+        this.settingsService.setSetting("rows", rows)
     }
 
     public removeTile(rowIndex: number, tileIndex: number) {
-        this.rows[rowIndex].splice(tileIndex, 1)
-        this.settingsService.setSetting("rows", this.rows)
+        const rows = this.settingsService.getSetting("rows")
+        rows[rowIndex].splice(tileIndex, 1)
+        this.settingsService.setSetting("rows", rows)
     }
 
     public createRow() {
-        this.rows.push([])
-        this.settingsService.setSetting("rows", this.rows)
+        const rows = this.settingsService.getSetting("rows")
+        rows.push([])
+        this.settingsService.setSetting("rows", rows)
     }
 
     public removeRow(rowIndex: number) {
-        this.rows.splice(rowIndex, 1)
-        this.settingsService.setSetting("rows", this.rows)
+        const rows = this.settingsService.getSetting("rows")
+        rows.splice(rowIndex, 1)
+        this.settingsService.setSetting("rows", rows)
     }
 }

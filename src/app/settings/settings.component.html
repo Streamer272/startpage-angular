@@ -87,7 +87,7 @@
         ></app-switch>
     </div>
 
-    <div class="section" *ngFor="let row of rows, let rowIndex = index">
+    <div class="section" *ngFor="let row of settingsService.getSetting('rows'), let rowIndex = index">
         <p class="title">Row<img src="/assets/images/delete.svg" alt="Remove" class="delete"
                                  (click)="removeRow(rowIndex)"></p>
         <div class="br"></div>

@@ -1,8 +1,8 @@
-import {Injectable} from "@angular/core";
+import {EventEmitter, Injectable} from "@angular/core";
 import {newShortcut, newWeather} from "../tile";
 import {AngularFireAuth} from "@angular/fire/compat/auth";
 import {GoogleAuthProvider} from "firebase/auth";
-import {AngularFirestore, AngularFirestoreCollection, DocumentChangeAction} from '@angular/fire/compat/firestore';
+import {AngularFirestore} from '@angular/fire/compat/firestore';
 import {Router} from "@angular/router";
 
 export enum SettingsKeys {
@@ -16,7 +16,7 @@ export enum SettingsKeys {
     MONTH_FORMAT = "monthFormat",
     YEAR_FORMAT = "yearFormat",
     ENABLE_SEARCH = "enableSearch",
-    ROWS = "rows"
+    ROWS = "rows",
 }
 
 export interface Settings {
@@ -48,61 +48,81 @@ export const SETTINGS_OPTIONS = {
     "yearFormat": ["Short (23)", "Long (2023)", "Don't show year"]
 }
 
+export const SETTINGS_DEFAULT = {
+    "enableIntro": true,
+    "enableGreeting": false,
+    "enableTime": true,
+    "showSeconds": false,
+    "hourFormat": SETTINGS_OPTIONS.hourFormat[0],
+    "enableDate": true,
+    "dayFormat": SETTINGS_OPTIONS.dayFormat[0],
+    "monthFormat": SETTINGS_OPTIONS.monthFormat[0],
+    "yearFormat": SETTINGS_OPTIONS.yearFormat[1],
+    "enableSearch": true,
+    "rows": `[
+  {
+    "type": "Weather"
+  },
+  {
+    "type": "Shortcut",
+    "link1": "https://www.google.com",
+    "title1": "Google",
+    "icon1": "https://www.google.com/favicon.ico",
+    "link2": "https://github.com",
+    "title2": "GitHub",
+    "icon2": "https://github.com/favicon.ico"
+  },
+  {
+    "type": "Shortcut",
+    "link1": "https://reddit.com",
+    "title1": "Reddit",
+    "icon1": "https://reddit.com/favicon.ico",
+    "link2": "",
+    "title2": "",
+    "icon2": ""
+  }
+]`,
+}
+
 @Injectable({
     providedIn: "root"
 })
 export class SettingsService {
-    private settings: Settings = {
-        // intro
-        enableIntro: true,
-        enableGreeting: false,
-        // time
-        enableTime: true,
-        showSeconds: false,
-        hourFormat: SETTINGS_OPTIONS[SettingsKeys.HOUR_FORMAT][0],
-        // date
-        enableDate: true,
-        dayFormat: SETTINGS_OPTIONS[SettingsKeys.DAY_FORMAT][0],
-        monthFormat: SETTINGS_OPTIONS[SettingsKeys.MONTH_FORMAT][0],
-        yearFormat: SETTINGS_OPTIONS[SettingsKeys.YEAR_FORMAT][0],
-        // search
-        enableSearch: true,
-        // rows
-        rows: []
-    }
-    public OPTIONS = SETTINGS_OPTIONS
+    private settingsId?: string
+    private settings?: Settings
 
-    private settingsCollection?: AngularFirestoreCollection<Settings>
-    private ready: Function = () => {
-    }
+    public ready: EventEmitter<boolean> = new EventEmitter<boolean>()
+    public OPTIONS = SETTINGS_OPTIONS
 
     constructor(public auth: AngularFireAuth, private firestore: AngularFirestore, private router: Router) {
         this.registerAuthListener(this.onAuthStateChanged)
-
-        // rows
-        this.setSetting("rows", [
-            [
-                newWeather(),
-                newShortcut("https://www.google.com", "Google", "https://www.google.com/favicon.ico", "https://github.com", "GitHub", "https://github.com/favicon.ico"),
-                newShortcut("https://reddit.com", "Reddit", "https://reddit.com/favicon.ico")
-            ]
-        ])
     }
 
-    public getSetting(name: SettingsKeys | string): any {
+    public getSetting(name: string): any | undefined {
+        if (!this.settings)
+            return undefined
+
         const value = this.settings[name]
-        if (name === SettingsKeys.ROWS) {
+        if (name === "rows") {
             return JSON.parse(value as string)
         }
         return value
     }
 
-    public setSetting(name: SettingsKeys | string, value: any) {
-        if (name === SettingsKeys.ROWS) {
+    public setSetting(name: string, value: any) {
+        if (!this.settings)
+            return
+
+        if (name === "rows") {
             this.settings[name] = JSON.stringify(value) as any
         } else {
             this.settings[name] = value
         }
+
+        if (!this.settingsId)
+            return
+        const doc = this.firestore.doc<Settings>(`settings/${this.settingsId}`)
+        doc.update(this.settings)
     }
 
     public async signIn() {
@@ -111,28 +131,25 @@ export class SettingsService {
     }
 
     public signOut() {
-        this.auth.signOut()
+        this.auth.signOut().catch(this.handleError)
     }
 
     private onAuthStateChanged(user: any, self: SettingsService) {
-        console.log("User change detected:", user)
         if (!user)
             return
 
-        self.settingsCollection = self.firestore.collection<Settings>("settings", (ref) => ref.where("uid", "==", user.uid).limit(1))
-        self.settingsCollection.snapshotChanges().subscribe((actions) => {
-            actions.map((doc) => {
+        const settingsCollection = self.firestore.collection<Settings>("settings", (ref) => ref.where("uid", "==", user.uid).limit(1))
+        settingsCollection.snapshotChanges().subscribe((actions) => {
+            actions.map((action) => {
+                const doc = action.payload.doc
+                self.settingsId = doc.id
+                self.settings = doc.data()
 
-            })
-        })
-        const fsSettings = self.settingsCollection.valueChanges()
-        fsSettings.subscribe((settings: Settings[]) => {
-            console.log("Settings change detected:", settings[0])
-            self.settings = settings[0]
-            this.ready()
-            const location = self.router.url
-            self.router.navigate(["/"], {skipLocationChange: true}).then(() => {
-                self.router.navigate([location]);
+                self.ready.emit(true)
+                const location = self.router.url
+                self.router.navigate(["/"], {skipLocationChange: true}).then(() => {
+                    self.router.navigate([location]);
+                })
             })
         })
     }
